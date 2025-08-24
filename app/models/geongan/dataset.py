@@ -9,6 +9,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from app.core.database import Base
+from app.models.geongan.link_resource import LinkResource
 
 
 class Dataset(Base):
@@ -34,15 +35,15 @@ class Dataset(Base):
     links_from = relationship(
         "Dataset",
         secondary="link_resources",
-        primaryjoin="Dataset.id == LinkResource.dataset_from_id",
-        secondaryjoin="Dataset.id == LinkResource.dataset_to_id",
+        primaryjoin="Dataset.id == LinkResource.fdatasetFrom",
+        secondaryjoin="Dataset.id == LinkResource.fdatasetTo",
         back_populates="links_to",
     )
     links_to = relationship(
         "Dataset",
         secondary="link_resources",
-        primaryjoin="Dataset.id == LinkResource.dataset_to_id",
-        secondaryjoin="Dataset.id == LinkResource.dataset_from_id",
+        primaryjoin="Dataset.id == LinkResource.fdatasetTo",
+        secondaryjoin="Dataset.id == LinkResource.fdatasetFrom",
         back_populates="links_from",
     )
     endpoint_accesses = relationship("EndpointAccess", back_populates="dataset")
