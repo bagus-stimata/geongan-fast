@@ -5,7 +5,7 @@ from app.core.database import get_db
 from app.core.security import get_current_user
 from app.repository.geongan.dataset_file_repo import create_dataset_file, get_all_dataset_file
 from app.schemas.geongan.dataset_file import DatasetFileCreate, DatasetFileResponse
-from app.models.dataset_file import DatasetFile
+from app.models.geongan.dataset_file import DatasetFile
 
 router = APIRouter(prefix="/api", tags=["dataset_file"])
 

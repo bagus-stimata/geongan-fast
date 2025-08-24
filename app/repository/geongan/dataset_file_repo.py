@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.models.dataset_file import DatasetFile
+from app.models.geongan.dataset_file import DatasetFile
 from app.schemas.geongan.dataset_file import DatasetFileCreate
 
 

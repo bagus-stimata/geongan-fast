@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.models.dataset import Dataset
-from app.schemas.geogan import DatasetCreate
+from app.models.geongan.dataset import Dataset
+from app.schemas.geongan.dataset import DatasetCreate
 
 
 def create_dataset(db: Session, dataset_in: DatasetCreate):
