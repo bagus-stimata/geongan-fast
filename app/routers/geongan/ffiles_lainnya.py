@@ -3,11 +3,11 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user
-from app.repository.geogan.ffiles_lainnya_repo import create_ffiles_lainnya, get_all_ffiles_lainnya
-from app.schemas.geogan.ffiles_lainnya import FFilesLainnyaCreate, FFilesLainnyaResponse
-from app.models.geogan.ffiles_lainnya import FFilesLainnya
+from app.repository.geongan.ffiles_lainnya_repo import create_ffiles_lainnya, get_all_ffiles_lainnya
+from app.schemas.geongan.ffiles_lainnya import FFilesLainnyaCreate, FFilesLainnyaResponse
+from app.models.geongan.ffiles_lainnya import FFilesLainnya
 
-router = APIRouter(prefix="/api/geogan", tags=["ffileslainnya"])
+router = APIRouter(prefix="/api/geongan", tags=["ffileslainnya"])
 
 @router.post("/createFFilesLainnya", response_model=FFilesLainnyaResponse)
 def create_ffiles_lainnya_endpoint(

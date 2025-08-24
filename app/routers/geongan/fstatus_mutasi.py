@@ -3,11 +3,11 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user
-from app.repository.geogan.fstatus_mutasi_repo import create_fstatus_mutasi, get_all_fstatus_mutasi
-from app.schemas.geogan.fstatus_mutasi import FStatusMutasiCreate, FStatusMutasiResponse
-from app.models.geogan.fstatus_mutasi import FStatusMutasi
+from app.repository.geongan.fstatus_mutasi_repo import create_fstatus_mutasi, get_all_fstatus_mutasi
+from app.schemas.geongan.fstatus_mutasi import FStatusMutasiCreate, FStatusMutasiResponse
+from app.models.geongan.fstatus_mutasi import FStatusMutasi
 
-router = APIRouter(prefix="/api/geogan", tags=["fstatusmutasi"])
+router = APIRouter(prefix="/api/geongan", tags=["fstatusmutasi"])
 
 @router.post("/createFStatusMutasi", response_model=FStatusMutasiResponse)
 def create_fstatus_mutasi_endpoint(

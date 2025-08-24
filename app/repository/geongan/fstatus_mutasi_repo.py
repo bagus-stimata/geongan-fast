@@ -2,8 +2,8 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.models.geogan.fstatus_mutasi import FStatusMutasi
-from app.schemas.geogan.fstatus_mutasi import FStatusMutasiCreate
+from app.models.geongan.fstatus_mutasi import FStatusMutasi
+from app.schemas.geongan.fstatus_mutasi import FStatusMutasiCreate
 
 
 def create_fstatus_mutasi(db: Session, status_in: FStatusMutasiCreate):

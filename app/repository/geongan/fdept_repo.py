@@ -2,8 +2,8 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.models.geogan.fdept import FDept
-from app.schemas.geogan.fdept import FDeptCreate
+from app.models.geongan.fdept import FDept
+from app.schemas.geongan.fdept import FDeptCreate
 
 
 def create_fdept(db: Session, dept_in: FDeptCreate):

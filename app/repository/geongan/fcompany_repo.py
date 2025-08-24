@@ -2,8 +2,8 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.models.geogan.fcompany import FCompany
-from app.schemas.geogan.fcompany import FCompanyCreate
+from app.models.geongan.fcompany import FCompany
+from app.schemas.geongan.fcompany import FCompanyCreate
 
 
 def create_fcompany(db: Session, company_in: FCompanyCreate):
