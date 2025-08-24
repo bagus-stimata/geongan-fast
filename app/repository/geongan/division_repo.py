@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.models.division import Division
-from app.schemas.geogan import DivisionCreate
+from app.models.geongan.division import Division
+from app.schemas.geongan.division import DivisionCreate
 
 
 def create_division(db: Session, division_in: DivisionCreate):
