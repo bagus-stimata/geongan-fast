@@ -4,8 +4,8 @@ from app.core.database import SessionLocal, get_db
 from app.main import app
 from app.models.geongan.fcompany import FCompany
 from app.models.geongan.fdivision import FDivision
-from app.routers.geongan import company as company_router
-from app.routers.geongan import division as division_router
+from app.routers.geongan import fcompany as company_router
+from app.routers.geongan import fdivision as division_router
 import pytest
 
 # Configure security for tests

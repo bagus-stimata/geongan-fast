@@ -3,33 +3,33 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user
-from app.repository.geongan.dataset_repo import create_dataset, get_all_dataset
-from app.schemas.geongan.dataset import DatasetCreate, DatasetResponse
-from app.models.geongan.fdataset import FDataset
+from app.repository.geongan.fdataset_row_repo import create_dataset_row, get_all_dataset_row
+from app.schemas.geongan.dataset_row import DatasetRowCreate, DatasetRowResponse
+from app.models.geongan.fdataset_row import FDatasetRow
 
-router = APIRouter(prefix="/api", tags=["dataset"])
+router = APIRouter(prefix="/api", tags=["dataset_row"])
 
 
-@router.post("/datasets", response_model=DatasetResponse)
-def create_dataset_endpoint(
-    payload: DatasetCreate,
+@router.post("/dataset-rows", response_model=DatasetRowResponse)
+def create_dataset_row_endpoint(
+    payload: DatasetRowCreate,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    existing = db.query(FDataset).filter_by(id=payload.id).first()
+    existing = db.query(FDatasetRow).filter_by(id=payload.id).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="ID already exists")
-    result = create_dataset(db, payload)
-    return DatasetResponse.model_validate(result)
+    result = create_dataset_row(db, payload)
+    return DatasetRowResponse.model_validate(result)
 
 
-@router.get("/datasets", response_model=list[DatasetResponse])
-def read_all_dataset(
+@router.get("/dataset-rows", response_model=list[DatasetRowResponse])
+def read_all_dataset_row(
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    return get_all_dataset(db)
+    return get_all_dataset_row(db)

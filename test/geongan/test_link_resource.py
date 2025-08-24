@@ -2,7 +2,7 @@ from httpx import AsyncClient, ASGITransport
 
 from app.core.database import SessionLocal, Base, engine
 from app.main import app
-from app.routers.geongan import link_resource as link_resource_router
+from app.routers.geongan import ft_link_resource as link_resource_router
 from app.core.security import create_access_token
 from app.models.geongan.fdataset import FDataset
 from app.models.geongan.fdivision import FDivision

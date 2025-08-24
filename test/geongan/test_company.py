@@ -3,7 +3,7 @@ import app.core.security as security
 from app.core.database import SessionLocal, get_db
 from app.main import app
 from app.models.geongan.fcompany import FCompany
-from app.routers.geongan import company as company_router
+from app.routers.geongan import fcompany as company_router
 import pytest
 
 # Configure security for tests

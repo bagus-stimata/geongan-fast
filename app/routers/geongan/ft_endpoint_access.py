@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user
-from app.repository.geongan.endpoint_access_repo import (
+from app.repository.geongan.ft_endpoint_access_repo import (
     create_endpoint_access,
     get_all_endpoint_access,
 )
