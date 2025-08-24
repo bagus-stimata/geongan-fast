@@ -5,7 +5,7 @@ from app.core.database import get_db
 from app.core.security import get_current_user
 from app.repository.geongan.company_repo import create_company, get_all_company
 from app.schemas.geongan.company import CompanyCreate, CompanyResponse
-from app.models.geongan.company import Company
+from app.models.geongan.fcompany import FCompany
 
 router = APIRouter(prefix="/api", tags=["company"])
 
@@ -18,7 +18,7 @@ def create_company_endpoint(
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    existing = db.query(Company).filter_by(id=payload.id).first()
+    existing = db.query(FCompany).filter_by(id=payload.id).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="ID already exists")
     result = create_company(db, payload)

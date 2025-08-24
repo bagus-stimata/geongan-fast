@@ -11,7 +11,7 @@ from app.schemas.geongan.link_resource import (
     LinkResourceCreate,
     LinkResourceResponse,
 )
-from app.models.geongan.link_resource import LinkResource
+from app.models.geongan.ft_link_resource import FtLinkResource
 
 
 router = APIRouter(prefix="/api", tags=["link_resource"])
@@ -25,7 +25,7 @@ def create_link_resource_endpoint(
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    existing = db.query(LinkResource).filter_by(id=payload.id).first()
+    existing = db.query(FtLinkResource).filter_by(id=payload.id).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="ID already exists")
     result = create_link_resource(db, payload)

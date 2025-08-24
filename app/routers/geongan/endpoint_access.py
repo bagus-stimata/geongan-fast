@@ -11,7 +11,7 @@ from app.schemas.geongan.endpoint_access import (
     EndpointAccessCreate,
     EndpointAccessResponse,
 )
-from app.models.geongan.endpoint_access import EndpointAccess
+from app.models.geongan.ft_endpoint_access import FtEndpointAccess
 
 
 router = APIRouter(prefix="/api", tags=["endpoint_access"])
@@ -25,7 +25,7 @@ def create_endpoint_access_endpoint(
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    existing = db.query(EndpointAccess).filter_by(id=payload.id).first()
+    existing = db.query(FtEndpointAccess).filter_by(id=payload.id).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="ID already exists")
     result = create_endpoint_access(db, payload)
