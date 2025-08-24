@@ -1,0 +1,31 @@
+fastapi~=0.116.1
+uvicorn==0.35.0
+python-multipart==0.0.20
+SQLAlchemy>=2.0.30,<2.1
+pydantic==2.11.7
+pydantic-settings==2.10.1
+
+#python-jose[cryptography]==3.5.0
+PyJWT[crypto]==2.10.1
+
+passlib[bcrypt]==1.7.4
+bcrypt==4.3.0
+
+# MySQL (pilih salah satu):
+PyMySQL==1.1.1          # pure Python
+# PostgreSQL:
+#psycopg2-binary==2.9.10
+#atau
+psycopg2==2.9.10
+
+PyMySQL==1.1.1
+
+alembic>=1.15.0,<1.17
+python-dotenv
+
+pytest==8.4.1
+pytest-asyncio==1.1.0
+httpx==0.28.1
+
+geopandas==1.1.1
+shapely==2.1.1
