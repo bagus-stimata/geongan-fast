@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.security import get_current_user
 from app.repository.geongan.dataset_row_repo import create_dataset_row, get_all_dataset_row
-from app.schemas.geogan.dataset_row import DatasetRowCreate, DatasetRowResponse
+from app.schemas.geogan import DatasetRowCreate, DatasetRowResponse
 from app.models.dataset_row import DatasetRow
 
 router = APIRouter(prefix="/api", tags=["dataset_row"])

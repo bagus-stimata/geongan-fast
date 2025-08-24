@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.models.company import Company
-from app.schemas.geogan.company import CompanyCreate
+from app.schemas.geogan import CompanyCreate
 
 
 def create_company(db: Session, company_in: CompanyCreate):

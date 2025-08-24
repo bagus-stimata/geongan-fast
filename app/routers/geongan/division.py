@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.security import get_current_user
 from app.repository.geongan.division_repo import create_division, get_all_division
-from app.schemas.geogan.division import DivisionCreate, DivisionResponse
+from app.schemas.geogan import DivisionCreate, DivisionResponse
 from app.models.division import Division
 
 router = APIRouter(prefix="/api", tags=["division"])
