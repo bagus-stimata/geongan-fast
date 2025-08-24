@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user
-from app.repository.dataset_repo import create_dataset, get_all_dataset
-from app.schemas.dataset import DatasetCreate, DatasetResponse
+from app.repository.geongan.dataset_repo import create_dataset, get_all_dataset
+from app.schemas.geogan.dataset import DatasetCreate, DatasetResponse
 from app.models.dataset import Dataset
 
 router = APIRouter(prefix="/api", tags=["dataset"])

@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.models.dataset_file import DatasetFile
-from app.schemas.dataset_file import DatasetFileCreate
+from app.schemas.geogan.dataset_file import DatasetFileCreate
 
 
 def create_dataset_file(db: Session, dataset_file_in: DatasetFileCreate):

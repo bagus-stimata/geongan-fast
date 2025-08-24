@@ -3,33 +3,33 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user
-from app.repository.dataset_file_repo import create_dataset_file, get_all_dataset_file
-from app.schemas.dataset_file import DatasetFileCreate, DatasetFileResponse
-from app.models.dataset_file import DatasetFile
+from app.repository.geongan.company_repo import create_company, get_all_company
+from app.schemas.geogan.company import CompanyCreate, CompanyResponse
+from app.models.company import Company
 
-router = APIRouter(prefix="/api", tags=["dataset_file"])
+router = APIRouter(prefix="/api", tags=["company"])
 
 
-@router.post("/dataset-files", response_model=DatasetFileResponse)
-def create_dataset_file_endpoint(
-    payload: DatasetFileCreate,
+@router.post("/companies", response_model=CompanyResponse)
+def create_company_endpoint(
+    payload: CompanyCreate,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    existing = db.query(DatasetFile).filter_by(id=payload.id).first()
+    existing = db.query(Company).filter_by(id=payload.id).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="ID already exists")
-    result = create_dataset_file(db, payload)
-    return DatasetFileResponse.model_validate(result)
+    result = create_company(db, payload)
+    return CompanyResponse.model_validate(result)
 
 
-@router.get("/dataset-files", response_model=list[DatasetFileResponse])
-def read_all_dataset_file(
+@router.get("/companies", response_model=list[CompanyResponse])
+def read_all_company(
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    return get_all_dataset_file(db)
+    return get_all_company(db)
