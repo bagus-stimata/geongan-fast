@@ -5,7 +5,7 @@ from app.core.database import get_db
 from app.core.security import get_current_user
 from app.repository.geongan.division_repo import create_division, get_all_division
 from app.schemas.geongan.division import DivisionCreate, DivisionResponse
-from app.models.geongan.division import Division
+from app.models.geongan.fdivision import FDivision
 
 router = APIRouter(prefix="/api", tags=["division"])
 
@@ -18,7 +18,7 @@ def create_division_endpoint(
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    existing = db.query(Division).filter_by(id=payload.id).first()
+    existing = db.query(FDivision).filter_by(id=payload.id).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="ID already exists")
     result = create_division(db, payload)

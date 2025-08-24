@@ -18,6 +18,6 @@ class User(Base):
     avatarImage = Column(String(255), nullable=True)
     birthDate = Column(Date, nullable=True)
     endpoint_accesses = relationship(
-        "EndpointAccess", back_populates="user", cascade="all, delete-orphan"
+        "FtEndpointAccess", back_populates="user", cascade="all, delete-orphan"
     )
 

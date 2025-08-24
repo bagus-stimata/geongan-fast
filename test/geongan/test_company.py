@@ -2,7 +2,7 @@ from httpx import AsyncClient, ASGITransport
 import app.core.security as security
 from app.core.database import SessionLocal, get_db
 from app.main import app
-from app.models.geongan.company import Company
+from app.models.geongan.fcompany import FCompany
 from app.routers.geongan import company as company_router
 import pytest
 
@@ -27,7 +27,7 @@ app.include_router(company_router.router)
 
 # Ensure the table exists
 _db = SessionLocal()
-Company.__table__.create(bind=_db.bind, checkfirst=True)
+FCompany.__table__.create(bind=_db.bind, checkfirst=True)
 _db.close()
 
 
@@ -51,7 +51,7 @@ async def test_create_company():
             assert response.status_code == 200
     finally:
         db = SessionLocal()
-        db.query(Company).filter(Company.id == 9991).delete()
+        db.query(FCompany).filter(FCompany.id == 9991).delete()
         db.commit()
         db.close()
 
@@ -64,8 +64,8 @@ async def test_get_companies():
     })
 
     db = SessionLocal()
-    db.query(Company).filter(Company.id == 9992).delete()
-    dummy = Company(id=9992, kode1="CMP2", description="Dummy", status_active=True)
+    db.query(FCompany).filter(FCompany.id == 9992).delete()
+    dummy = FCompany(id=9992, kode1="CMP2", description="Dummy", status_active=True)
     db.add(dummy)
     db.commit()
     db.close()
@@ -80,6 +80,6 @@ async def test_get_companies():
             assert any(item["id"] == 9992 for item in data)
     finally:
         db = SessionLocal()
-        db.query(Company).filter(Company.id == 9992).delete()
+        db.query(FCompany).filter(FCompany.id == 9992).delete()
         db.commit()
         db.close()

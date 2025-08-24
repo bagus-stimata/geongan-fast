@@ -2,8 +2,8 @@ from httpx import AsyncClient, ASGITransport
 import app.core.security as security
 from app.core.database import SessionLocal, get_db
 from app.main import app
-from app.models.geongan.company import Company
-from app.models.geongan.division import Division
+from app.models.geongan.fcompany import FCompany
+from app.models.geongan.fdivision import FDivision
 from app.routers.geongan import company as company_router
 from app.routers.geongan import division as division_router
 import pytest
@@ -30,17 +30,17 @@ app.include_router(division_router.router)
 
 # Ensure the tables exist
 _db = SessionLocal()
-Company.__table__.create(bind=_db.bind, checkfirst=True)
-Division.__table__.create(bind=_db.bind, checkfirst=True)
+FCompany.__table__.create(bind=_db.bind, checkfirst=True)
+FDivision.__table__.create(bind=_db.bind, checkfirst=True)
 _db.close()
 
 
 @pytest.mark.asyncio
 async def test_create_division():
     db = SessionLocal()
-    db.query(Division).filter(Division.id == 9994).delete()
-    db.query(Company).filter(Company.id == 9993).delete()
-    dummy_company = Company(id=9993, kode1="CMP3", description="Company for division", status_active=True)
+    db.query(FDivision).filter(FDivision.id == 9994).delete()
+    db.query(FCompany).filter(FCompany.id == 9993).delete()
+    dummy_company = FCompany(id=9993, kode1="CMP3", description="Company for division", status_active=True)
     db.add(dummy_company)
     db.commit()
     db.close()
@@ -64,8 +64,8 @@ async def test_create_division():
             assert response.status_code == 200
     finally:
         db = SessionLocal()
-        db.query(Division).filter(Division.id == 9994).delete()
-        db.query(Company).filter(Company.id == 9993).delete()
+        db.query(FDivision).filter(FDivision.id == 9994).delete()
+        db.query(FCompany).filter(FCompany.id == 9993).delete()
         db.commit()
         db.close()
 
@@ -73,10 +73,10 @@ async def test_create_division():
 @pytest.mark.asyncio
 async def test_get_divisions():
     db = SessionLocal()
-    db.query(Division).filter(Division.id == 9996).delete()
-    db.query(Company).filter(Company.id == 9995).delete()
-    dummy_company = Company(id=9995, kode1="CMP4", description="Dummy Co", status_active=True)
-    dummy_division = Division(id=9996, kode1="DIV2", description="Dummy Div", company_id=9995, status_active=True)
+    db.query(FDivision).filter(FDivision.id == 9996).delete()
+    db.query(FCompany).filter(FCompany.id == 9995).delete()
+    dummy_company = FCompany(id=9995, kode1="CMP4", description="Dummy Co", status_active=True)
+    dummy_division = FDivision(id=9996, kode1="DIV2", description="Dummy Div", company_id=9995, status_active=True)
     db.add(dummy_company)
     db.add(dummy_division)
     db.commit()
@@ -97,7 +97,7 @@ async def test_get_divisions():
             assert any(item["id"] == 9996 for item in data)
     finally:
         db = SessionLocal()
-        db.query(Division).filter(Division.id == 9996).delete()
-        db.query(Company).filter(Company.id == 9995).delete()
+        db.query(FDivision).filter(FDivision.id == 9996).delete()
+        db.query(FCompany).filter(FCompany.id == 9995).delete()
         db.commit()
         db.close()

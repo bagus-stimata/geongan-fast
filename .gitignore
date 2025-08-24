@@ -83,3 +83,5 @@ alembic/versions/*.pyc
 
 # Mac
 .DS_Store
+# Database
+/test.db

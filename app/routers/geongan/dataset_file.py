@@ -5,7 +5,7 @@ from app.core.database import get_db
 from app.core.security import get_current_user
 from app.repository.geongan.dataset_file_repo import create_dataset_file, get_all_dataset_file
 from app.schemas.geongan.dataset_file import DatasetFileCreate, DatasetFileResponse
-from app.models.geongan.dataset_file import DatasetFile
+from app.models.geongan.fdataset_fille import FDatasetFille
 
 router = APIRouter(prefix="/api", tags=["dataset_file"])
 
@@ -18,7 +18,7 @@ def create_dataset_file_endpoint(
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    existing = db.query(DatasetFile).filter_by(id=payload.id).first()
+    existing = db.query(FDatasetFille).filter_by(id=payload.id).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="ID already exists")
     result = create_dataset_file(db, payload)

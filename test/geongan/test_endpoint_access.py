@@ -4,9 +4,9 @@ from app.core.database import SessionLocal, Base, engine
 from app.main import app
 from app.routers.geongan import endpoint_access as endpoint_access_router
 from app.core.security import create_access_token
-from app.models.geongan.dataset import Dataset
-from app.models.geongan.division import Division
-from app.models.geongan.company import Company
+from app.models.geongan.fdataset import FDataset
+from app.models.geongan.fdivision import FDivision
+from app.models.geongan.fcompany import FCompany
 from app.models.auth.user import User
 import app.models as models  # ensure tables are registered
 
@@ -20,9 +20,9 @@ async def test_create_endpoint_access():
     Base.metadata.create_all(bind=engine)
 
     db = SessionLocal()
-    db.add(Company(id=1, kode1="CMP", description="Test Company", status_active=True))
-    db.add(Division(id=1, kode1="DIV", description="Test Division", company_id=1, status_active=True))
-    db.add(Dataset(id=1, kode1="DS1", description="Dataset test", division_id=1, status_active=True))
+    db.add(FCompany(id=1, kode1="CMP", description="Test Company", status_active=True))
+    db.add(FDivision(id=1, kode1="DIV", description="Test Division", company_id=1, status_active=True))
+    db.add(FDataset(id=1, kode1="DS1", description="Dataset test", division_id=1, status_active=True))
     db.add(User(id=1, username="user1", email="user1@example.com", password="secret"))
     db.commit()
     db.close()

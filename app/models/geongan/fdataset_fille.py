@@ -3,11 +3,11 @@ from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 
-class DatasetFile(Base):
-    __tablename__ = "dataset_files"
+class FDatasetFille(Base):
+    __tablename__ = "fdataset_fille"
 
     id = Column(Integer, primary_key=True)
-    dataset_id = Column(Integer, ForeignKey("datasets.id"), nullable=False, index=True)
+    dataset_id = Column(Integer, ForeignKey("fdataset.id"), nullable=False, index=True)
     file_name = Column(String(255), nullable=False)
     file_type = Column(String(100))
     jenis = Column(String(50))
@@ -15,4 +15,4 @@ class DatasetFile(Base):
     description = Column(String(255))
     kode1 = Column(String(50))
 
-    dataset = relationship("Dataset", back_populates="files")
+    dataset = relationship("FDataset", back_populates="files")
