@@ -3,11 +3,11 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user
-from app.repository.geogan.fdivision_repo import create_fdivision, get_all_fdivision
-from app.schemas.geogan.fdivision import FDivisionCreate, FDivisionResponse
-from app.models.geogan.fdivision import FDivision
+from app.repository.geongan.fdivision_repo import create_fdivision, get_all_fdivision
+from app.schemas.geongan.fdivision import FDivisionCreate, FDivisionResponse
+from app.models.geongan.fdivision import FDivision
 
-router = APIRouter(prefix="/api/geogan", tags=["fdivision"])
+router = APIRouter(prefix="/api/geongan", tags=["fdivision"])
 
 @router.post("/createFDivision", response_model=FDivisionResponse)
 def create_fdivision_endpoint(

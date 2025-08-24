@@ -2,8 +2,8 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.models.geogan.fdatabase import FDatabase
-from app.schemas.geogan.fdatabase import FDatabaseCreate
+from app.models.geongan.fdatabase import FDatabase
+from app.schemas.geongan.fdatabase import FDatabaseCreate
 
 
 def create_fdatabase(db: Session, database_in: FDatabaseCreate):

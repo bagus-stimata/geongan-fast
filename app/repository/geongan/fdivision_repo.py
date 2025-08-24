@@ -2,8 +2,8 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.models.geogan.fdivision import FDivision
-from app.schemas.geogan.fdivision import FDivisionCreate
+from app.models.geongan.fdivision import FDivision
+from app.schemas.geongan.fdivision import FDivisionCreate
 
 
 def create_fdivision(db: Session, division_in: FDivisionCreate):

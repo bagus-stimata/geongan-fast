@@ -2,8 +2,8 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.models.geogan.ffiles_mutasi import FFilesMutasi
-from app.schemas.geogan.ffiles_mutasi import FFilesMutasiCreate
+from app.models.geongan.ffiles_mutasi import FFilesMutasi
+from app.schemas.geongan.ffiles_mutasi import FFilesMutasiCreate
 
 
 def create_ffiles_mutasi(db: Session, file_in: FFilesMutasiCreate):

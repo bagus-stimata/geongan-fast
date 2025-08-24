@@ -2,8 +2,8 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.models.geogan.ffiles_lainnya import FFilesLainnya
-from app.schemas.geogan.ffiles_lainnya import FFilesLainnyaCreate
+from app.models.geongan.ffiles_lainnya import FFilesLainnya
+from app.schemas.geongan.ffiles_lainnya import FFilesLainnyaCreate
 
 
 def create_ffiles_lainnya(db: Session, file_in: FFilesLainnyaCreate):
