@@ -7,15 +7,17 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 from app.core.database import get_db
+from app.core.config import settings
 
 # -------------------------------
-# 1) DB test config (Postgres)
+# 1) DB test config
 # -------------------------------
-TEST_DATABASE_URL = os.getenv(
-    "TEST_DATABASE_URL",
-    "postgresql+psycopg2://desgreen:Welcome1#@127.0.0.1:5432/batukota_perizinan",
-)
-engine = create_engine(TEST_DATABASE_URL, future=True)
+# Default to the application's configured DATABASE_URL so tests run without
+# requiring a local PostgreSQL instance.  ``TEST_DATABASE_URL`` can override
+# this when needed.
+TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL", settings.DATABASE_URL)
+connect_args = {"check_same_thread": False} if TEST_DATABASE_URL.startswith("sqlite") else {}
+engine = create_engine(TEST_DATABASE_URL, connect_args=connect_args, future=True)
 TestingSessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False, future=True)
 
 # -------------------------------
