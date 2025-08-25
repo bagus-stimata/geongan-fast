@@ -1,9 +1,9 @@
-from pydantic import BaseModel, ConfigDict
 from datetime import datetime
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 
-class DatasetBase(BaseModel):
+class FDatasetBase(BaseModel):
     kode1: str
     description: Optional[str] = None
     division_id: int
@@ -16,9 +16,10 @@ class DatasetBase(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class DatasetCreate(DatasetBase):
+class FDatasetCreate(FDatasetBase):
     id: int
 
 
-class DatasetResponse(DatasetBase):
+class FDatasetResponse(FDatasetBase):
     id: int
+

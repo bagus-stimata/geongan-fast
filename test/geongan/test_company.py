@@ -3,7 +3,7 @@ import app.core.security as security
 from app.core.database import SessionLocal, get_db
 from app.main import app
 from app.models.geongan.fcompany import FCompany
-from app.routers.geongan import fcompany as company_router
+from app.routers.geongan import fcompany as fcompany_router
 import pytest
 
 # Configure security for tests
@@ -23,7 +23,7 @@ def override_get_db():
 app.dependency_overrides[get_db] = override_get_db
 
 # Include the company router for testing
-app.include_router(company_router.router)
+app.include_router(fcompany_router.router)
 
 # Ensure the table exists
 _db = SessionLocal()
@@ -32,7 +32,7 @@ _db.close()
 
 
 @pytest.mark.asyncio
-async def test_create_company():
+async def test_create_fcompany():
     token = security.create_access_token({
         "username": "test_user",
         "roles": ["ROLE_ADMIN"],
@@ -47,7 +47,7 @@ async def test_create_company():
                 "description": "Company Test",
                 "status_active": True,
             }
-            response = await ac.post("/api/companies", json=payload, headers=headers)
+            response = await ac.post("/api/fcompanies", json=payload, headers=headers)
             assert response.status_code == 200
     finally:
         db = SessionLocal()
@@ -57,7 +57,7 @@ async def test_create_company():
 
 
 @pytest.mark.asyncio
-async def test_get_companies():
+async def test_get_fcompanies():
     token = security.create_access_token({
         "username": "test_user",
         "roles": ["ROLE_ADMIN"],
@@ -73,7 +73,7 @@ async def test_get_companies():
     try:
         async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
             headers = {"Authorization": f"Bearer {token}"}
-            response = await ac.get("/api/companies", headers=headers)
+            response = await ac.get("/api/fcompanies", headers=headers)
             assert response.status_code == 200
             data = response.json()
             assert isinstance(data, list)

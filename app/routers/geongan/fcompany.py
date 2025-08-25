@@ -3,16 +3,19 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user
-from app.repository.geongan.fcompany_repo import create_company, get_all_company
-from app.schemas.geongan.company import CompanyCreate, CompanyResponse
+from app.repository.geongan.fcompany_repo import (
+    create_fcompany,
+    get_all_fcompany,
+)
+from app.schemas.geongan.fcompany import FCompanyCreate, FCompanyResponse
 from app.models.geongan.fcompany import FCompany
 
-router = APIRouter(prefix="/api", tags=["company"])
+router = APIRouter(prefix="/api", tags=["fcompany"])
 
 
-@router.post("/companies", response_model=CompanyResponse)
-def create_company_endpoint(
-    payload: CompanyCreate,
+@router.post("/fcompanies", response_model=FCompanyResponse)
+def create_fcompany_endpoint(
+    payload: FCompanyCreate,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
@@ -21,15 +24,15 @@ def create_company_endpoint(
     existing = db.query(FCompany).filter_by(id=payload.id).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="ID already exists")
-    result = create_company(db, payload)
-    return CompanyResponse.model_validate(result)
+    result = create_fcompany(db, payload)
+    return FCompanyResponse.model_validate(result)
 
 
-@router.get("/companies", response_model=list[CompanyResponse])
-def read_all_company(
+@router.get("/fcompanies", response_model=list[FCompanyResponse])
+def read_all_fcompany(
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    return get_all_company(db)
+    return get_all_fcompany(db)

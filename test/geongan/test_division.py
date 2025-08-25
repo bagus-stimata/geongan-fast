@@ -4,8 +4,8 @@ from app.core.database import SessionLocal, get_db
 from app.main import app
 from app.models.geongan.fcompany import FCompany
 from app.models.geongan.fdivision import FDivision
-from app.routers.geongan import fcompany as company_router
-from app.routers.geongan import fdivision as division_router
+from app.routers.geongan import fcompany as fcompany_router
+from app.routers.geongan import fdivision as fdivision_router
 import pytest
 
 # Configure security for tests
@@ -25,8 +25,8 @@ def override_get_db():
 app.dependency_overrides[get_db] = override_get_db
 
 # Include routers for testing
-app.include_router(company_router.router)
-app.include_router(division_router.router)
+app.include_router(fcompany_router.router)
+app.include_router(fdivision_router.router)
 
 # Ensure the tables exist
 _db = SessionLocal()
@@ -36,7 +36,7 @@ _db.close()
 
 
 @pytest.mark.asyncio
-async def test_create_division():
+async def test_create_fdivision():
     db = SessionLocal()
     db.query(FDivision).filter(FDivision.id == 9994).delete()
     db.query(FCompany).filter(FCompany.id == 9993).delete()
@@ -60,7 +60,7 @@ async def test_create_division():
                 "company_id": 9993,
                 "status_active": True,
             }
-            response = await ac.post("/api/divisions", json=payload, headers=headers)
+            response = await ac.post("/api/fdivisions", json=payload, headers=headers)
             assert response.status_code == 200
     finally:
         db = SessionLocal()
@@ -71,7 +71,7 @@ async def test_create_division():
 
 
 @pytest.mark.asyncio
-async def test_get_divisions():
+async def test_get_fdivisions():
     db = SessionLocal()
     db.query(FDivision).filter(FDivision.id == 9996).delete()
     db.query(FCompany).filter(FCompany.id == 9995).delete()
@@ -90,7 +90,7 @@ async def test_get_divisions():
     try:
         async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
             headers = {"Authorization": f"Bearer {token}"}
-            response = await ac.get("/api/divisions", headers=headers)
+            response = await ac.get("/api/fdivisions", headers=headers)
             assert response.status_code == 200
             data = response.json()
             assert isinstance(data, list)

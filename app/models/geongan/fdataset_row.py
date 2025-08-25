@@ -13,12 +13,12 @@ from app.core.database import Base
 
 class FDatasetRow(Base):
     __tablename__ = "fdataset_row"
-    __table_args__ = (Index("ix_fdataset_row_dataset_id", "dataset_id"),)
+    __table_args__ = (Index("ix_fdataset_row_fdataset_id", "fdataset_id"),)
 
     id = Column(Integer, primary_key=True)
     kode1 = Column(String(50))
     description = Column(String(255))
-    dataset_id = Column(Integer, ForeignKey("fdataset.id"), nullable=False)
+    fdataset_id = Column(Integer, ForeignKey("fdataset.id"), nullable=False)
     fsatuan_id = Column(Integer)
     evalue_type = Column(String(50))
     str_value1 = Column(String(255))
@@ -26,4 +26,4 @@ class FDatasetRow(Base):
     double_value1 = Column(Float)
     date_value1 = Column(Date)
 
-    dataset = relationship("FDataset", back_populates="rows")
+    fdataset = relationship("FDataset", back_populates="rows")

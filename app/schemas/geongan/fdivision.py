@@ -2,7 +2,7 @@ from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 
-class DivisionBase(BaseModel):
+class FDivisionBase(BaseModel):
     kode1: str
     description: Optional[str] = None
     company_id: int
@@ -10,9 +10,10 @@ class DivisionBase(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class DivisionCreate(DivisionBase):
+class FDivisionCreate(FDivisionBase):
     id: int
 
 
-class DivisionResponse(DivisionBase):
+class FDivisionResponse(FDivisionBase):
     id: int
+

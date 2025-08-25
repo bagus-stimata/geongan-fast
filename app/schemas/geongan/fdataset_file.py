@@ -2,8 +2,8 @@ from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 
-class DatasetFileBase(BaseModel):
-    dataset_id: int
+class FDatasetFileBase(BaseModel):
+    fdataset_id: int
     file_name: str
     file_type: Optional[str] = None
     jenis: Optional[str] = None
@@ -13,9 +13,10 @@ class DatasetFileBase(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class DatasetFileCreate(DatasetFileBase):
+class FDatasetFileCreate(FDatasetFileBase):
     id: int
 
 
-class DatasetFileResponse(DatasetFileBase):
+class FDatasetFileResponse(FDatasetFileBase):
     id: int
+

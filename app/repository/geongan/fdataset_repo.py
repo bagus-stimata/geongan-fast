@@ -1,16 +1,16 @@
 from sqlalchemy.orm import Session
 
 from app.models.geongan.fdataset import FDataset
-from app.schemas.geongan.dataset import DatasetCreate
+from app.schemas.geongan.fdataset import FDatasetCreate
 
 
-def create_dataset(db: Session, dataset_in: DatasetCreate):
-    db_dataset = FDataset(**dataset_in.model_dump())
-    db.add(db_dataset)
+def create_fdataset(db: Session, fdataset_in: FDatasetCreate):
+    db_fdataset = FDataset(**fdataset_in.model_dump())
+    db.add(db_fdataset)
     db.commit()
-    db.refresh(db_dataset)
-    return db_dataset
+    db.refresh(db_fdataset)
+    return db_fdataset
 
 
-def get_all_dataset(db: Session):
+def get_all_fdataset(db: Session):
     return db.query(FDataset).all()

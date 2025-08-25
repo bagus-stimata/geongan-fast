@@ -2,18 +2,18 @@ from httpx import AsyncClient, ASGITransport
 
 from app.core.database import SessionLocal, Base, engine
 from app.main import app
-from app.routers.geongan import fdataset as dataset_router
+from app.routers.geongan import fdataset as fdataset_router
 from app.core.security import create_access_token
 from app.models.geongan.fdivision import FDivision
 from app.models.geongan.fcompany import FCompany
 import app.models as models  # ensure tables are registered
 
-app.include_router(dataset_router.router)
+app.include_router(fdataset_router.router)
 import pytest
 
 
 @pytest.mark.asyncio
-async def test_create_dataset():
+async def test_create_fdataset():
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
@@ -40,9 +40,9 @@ async def test_create_dataset():
             "division_id": 1,
             "status_active": True,
         }
-        response = await ac.post("/api/datasets", json=payload, headers=headers)
+        response = await ac.post("/api/fdatasets", json=payload, headers=headers)
         assert response.status_code == 200
 
-        response_get = await ac.get("/api/datasets", headers=headers)
+        response_get = await ac.get("/api/fdatasets", headers=headers)
         assert response_get.status_code == 200
         assert any(item["id"] == 1 for item in response_get.json())

@@ -2,19 +2,19 @@ from httpx import AsyncClient, ASGITransport
 
 from app.core.database import SessionLocal, Base, engine
 from app.main import app
-from app.routers.geongan import ft_link_resource as link_resource_router
+from app.routers.geongan import ft_link_resource as ft_link_resource_router
 from app.core.security import create_access_token
 from app.models.geongan.fdataset import FDataset
 from app.models.geongan.fdivision import FDivision
 from app.models.geongan.fcompany import FCompany
 import app.models as models  # ensure tables are registered
 
-app.include_router(link_resource_router.router)
+app.include_router(ft_link_resource_router.router)
 import pytest
 
 
 @pytest.mark.asyncio
-async def test_create_link_resource():
+async def test_create_ft_link_resource():
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
@@ -41,10 +41,10 @@ async def test_create_link_resource():
             "fdatasetFrom": 1,
             "fdatasetTo": 2,
         }
-        response = await ac.post("/api/link-resources", json=payload, headers=headers)
+        response = await ac.post("/api/ft-link-resources", json=payload, headers=headers)
         assert response.status_code == 200
 
-        response_get = await ac.get("/api/link-resources", headers=headers)
+        response_get = await ac.get("/api/ft-link-resources", headers=headers)
         assert response_get.status_code == 200
         assert any(item["id"] == 1 for item in response_get.json())
 

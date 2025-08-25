@@ -30,8 +30,12 @@ class FDataset(Base):
     sumber_data = Column(String(255))
 
     division = relationship("FDivision", back_populates="datasets")
-    files = relationship("FDatasetFille", back_populates="dataset", cascade="all, delete-orphan")
-    rows = relationship("FDatasetRow", back_populates="dataset", cascade="all, delete-orphan")
+    files = relationship(
+        "FDatasetFille", back_populates="fdataset", cascade="all, delete-orphan"
+    )
+    rows = relationship(
+        "FDatasetRow", back_populates="fdataset", cascade="all, delete-orphan"
+    )
     links_from = relationship(
         "FDataset",
         secondary="ft_link_resource",
@@ -46,4 +50,6 @@ class FDataset(Base):
         secondaryjoin="FDataset.id == FtLinkResource.fdatasetFrom",
         back_populates="links_from",
     )
-    endpoint_accesses = relationship("FtEndpointAccess", back_populates="dataset")
+    ft_endpoint_accesses = relationship(
+        "FtEndpointAccess", back_populates="fdataset"
+    )
