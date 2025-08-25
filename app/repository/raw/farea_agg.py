@@ -2,7 +2,7 @@
 
 from sqlalchemy import text
 
-def count_active_area_per_division(db):
+def count_active_area_per_fdivision(db):
     """
     Contoh query raw aggregate:
     Hitung total FArea aktif group by fdivisionBean.

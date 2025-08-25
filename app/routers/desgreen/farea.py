@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.security import get_current_user
 from app.repository.desgreen.farea_repo import create_farea, get_all_farea
-from app.repository.raw.farea_agg import count_active_area_per_division
+from app.repository.raw.farea_agg import count_active_area_per_fdivision
 from app.schemas.desgreen.farea import FAreaCreate, FAreaResponse
 from app.models.desgreen.farea import FArea
 
@@ -46,7 +46,7 @@ def read_all_farea(
 
     return get_all_farea(db)
 
-@router.get("/active-per-division")
+@router.get("/active-per-fdivision")
 def get_farea_agg(db: Session = Depends(get_db)):
-    data = count_active_area_per_division(db)
+    data = count_active_area_per_fdivision(db)
     return {"data": data}

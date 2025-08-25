@@ -17,7 +17,7 @@ class User(Base):
     countryCode = Column(Integer, nullable=True)
     avatarImage = Column(String(255), nullable=True)
     birthDate = Column(Date, nullable=True)
-    endpoint_accesses = relationship(
+    ft_endpoint_accesses = relationship(
         "FtEndpointAccess", back_populates="user", cascade="all, delete-orphan"
     )
 

@@ -2,16 +2,16 @@ from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 
-class CompanyBase(BaseModel):
+class FCompanyBase(BaseModel):
     kode1: str
     description: Optional[str] = None
     status_active: bool = True
     model_config = ConfigDict(from_attributes=True)
 
 
-class CompanyCreate(CompanyBase):
+class FCompanyCreate(FCompanyBase):
     id: int
 
 
-class CompanyResponse(CompanyBase):
+class FCompanyResponse(FCompanyBase):
     id: int

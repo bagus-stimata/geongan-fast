@@ -2,19 +2,19 @@ from httpx import AsyncClient, ASGITransport
 
 from app.core.database import SessionLocal, Base, engine
 from app.main import app
-from app.routers.geongan import fdataset_row as dataset_row_router
+from app.routers.geongan import fdataset_row as fdataset_row_router
 from app.core.security import create_access_token
 from app.models.geongan.fdataset import FDataset
 from app.models.geongan.fdivision import FDivision
 from app.models.geongan.fcompany import FCompany
 import app.models as models  # ensure tables are registered
 
-app.include_router(dataset_row_router.router)
+app.include_router(fdataset_row_router.router)
 import pytest
 
 
 @pytest.mark.asyncio
-async def test_create_dataset_row():
+async def test_create_fdataset_row():
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
@@ -37,13 +37,13 @@ async def test_create_dataset_row():
         headers = {"Authorization": f"Bearer {token}"}
         payload = {
             "id": 1,
-            "dataset_id": 1,
+            "fdataset_id": 1,
             "kode1": "ROW1",
             "description": "Row test",
         }
-        response = await ac.post("/api/dataset-rows", json=payload, headers=headers)
+        response = await ac.post("/api/fdataset-rows", json=payload, headers=headers)
         assert response.status_code == 200
 
-        response_get = await ac.get("/api/dataset-rows", headers=headers)
+        response_get = await ac.get("/api/fdataset-rows", headers=headers)
         assert response_get.status_code == 200
         assert any(item["id"] == 1 for item in response_get.json())

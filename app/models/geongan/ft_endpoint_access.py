@@ -22,6 +22,6 @@ class FtEndpointAccess(Base):
     endPointType = Column(Integer, nullable=False)
     basicAuth = Column(String(750))
 
-    user = relationship("User", back_populates="endpoint_accesses")
-    dataset = relationship("FDataset", back_populates="endpoint_accesses")
+    user = relationship("User", back_populates="ft_endpoint_accesses")
+    fdataset = relationship("FDataset", back_populates="ft_endpoint_accesses")
 

@@ -10,7 +10,7 @@ class EndpointType(IntEnum):
     INTERNAL = 2
 
 
-class EndpointAccessBase(BaseModel):
+class FtEndpointAccessBase(BaseModel):
     userBean: int
     endpoint: str
     fdatasetBean: int
@@ -28,10 +28,10 @@ class EndpointAccessBase(BaseModel):
         return self
 
 
-class EndpointAccessCreate(EndpointAccessBase):
+class FtEndpointAccessCreate(FtEndpointAccessBase):
     id: int
 
 
-class EndpointAccessResponse(EndpointAccessBase):
+class FtEndpointAccessResponse(FtEndpointAccessBase):
     id: int
 

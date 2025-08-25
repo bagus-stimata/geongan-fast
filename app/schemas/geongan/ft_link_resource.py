@@ -1,16 +1,16 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class LinkResourceBase(BaseModel):
+class FtLinkResourceBase(BaseModel):
     fdatasetFrom: int
     fdatasetTo: int
     model_config = ConfigDict(from_attributes=True)
 
 
-class LinkResourceCreate(LinkResourceBase):
+class FtLinkResourceCreate(FtLinkResourceBase):
     id: int
 
 
-class LinkResourceResponse(LinkResourceBase):
+class FtLinkResourceResponse(FtLinkResourceBase):
     id: int
 

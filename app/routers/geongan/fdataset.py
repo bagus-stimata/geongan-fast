@@ -3,16 +3,19 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user
-from app.repository.geongan.fdataset_repo import create_dataset, get_all_dataset
-from app.schemas.geongan.dataset import DatasetCreate, DatasetResponse
+from app.repository.geongan.fdataset_repo import (
+    create_fdataset,
+    get_all_fdataset,
+)
+from app.schemas.geongan.fdataset import FDatasetCreate, FDatasetResponse
 from app.models.geongan.fdataset import FDataset
 
-router = APIRouter(prefix="/api", tags=["dataset"])
+router = APIRouter(prefix="/api", tags=["fdataset"])
 
 
-@router.post("/datasets", response_model=DatasetResponse)
-def create_dataset_endpoint(
-    payload: DatasetCreate,
+@router.post("/fdatasets", response_model=FDatasetResponse)
+def create_fdataset_endpoint(
+    payload: FDatasetCreate,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
@@ -21,15 +24,15 @@ def create_dataset_endpoint(
     existing = db.query(FDataset).filter_by(id=payload.id).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="ID already exists")
-    result = create_dataset(db, payload)
-    return DatasetResponse.model_validate(result)
+    result = create_fdataset(db, payload)
+    return FDatasetResponse.model_validate(result)
 
 
-@router.get("/datasets", response_model=list[DatasetResponse])
-def read_all_dataset(
+@router.get("/fdatasets", response_model=list[FDatasetResponse])
+def read_all_fdataset(
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
     if "ROLE_ADMIN" not in current_user["roles"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
-    return get_all_dataset(db)
+    return get_all_fdataset(db)

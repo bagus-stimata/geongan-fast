@@ -1,12 +1,12 @@
+from datetime import date
 from pydantic import BaseModel, ConfigDict
 from typing import Optional
-from datetime import date
 
 
-class DatasetRowBase(BaseModel):
+class FDatasetRowBase(BaseModel):
     kode1: Optional[str] = None
     description: Optional[str] = None
-    dataset_id: int
+    fdataset_id: int
     fsatuan_id: Optional[int] = None
     evalue_type: Optional[str] = None
     str_value1: Optional[str] = None
@@ -16,9 +16,10 @@ class DatasetRowBase(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class DatasetRowCreate(DatasetRowBase):
+class FDatasetRowCreate(FDatasetRowBase):
     id: int
 
 
-class DatasetRowResponse(DatasetRowBase):
+class FDatasetRowResponse(FDatasetRowBase):
     id: int
+

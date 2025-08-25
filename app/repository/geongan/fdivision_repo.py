@@ -1,16 +1,16 @@
 from sqlalchemy.orm import Session
 
 from app.models.geongan.fdivision import FDivision
-from app.schemas.geongan.division import DivisionCreate
+from app.schemas.geongan.fdivision import FDivisionCreate
 
 
-def create_division(db: Session, division_in: DivisionCreate):
-    db_division = FDivision(**division_in.model_dump())
-    db.add(db_division)
+def create_fdivision(db: Session, fdivision_in: FDivisionCreate):
+    db_fdivision = FDivision(**fdivision_in.model_dump())
+    db.add(db_fdivision)
     db.commit()
-    db.refresh(db_division)
-    return db_division
+    db.refresh(db_fdivision)
+    return db_fdivision
 
 
-def get_all_division(db: Session):
+def get_all_fdivision(db: Session):
     return db.query(FDivision).all()
