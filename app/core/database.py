@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine, event, MetaData, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 from app.core.config import settings
 
@@ -33,7 +33,29 @@ if IS_SQLITE:
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-Base = declarative_base()
+
+class _BaseMetaData(MetaData):
+    """MetaData with Postgres-friendly drop_all.
+
+    The original :meth:`MetaData.drop_all` doesn't issue ``CASCADE`` which
+    means dropping tables may fail when leftover tables outside of SQLAlchemy's
+    metadata still depend on them.  Some of our tests create tables manually
+    and rely on a hard reset between runs.  By overriding ``drop_all`` we
+    ensure that, on PostgreSQL, the whole ``public`` schema is dropped and
+    recreated so no stray foreign key constraints remain.
+    """
+
+    def drop_all(self, bind=None, tables=None, checkfirst=True):  # noqa: D401
+        bind = bind or engine
+        if bind.dialect.name == "postgresql":
+            with bind.begin() as conn:
+                conn.execute(text("DROP SCHEMA IF EXISTS public CASCADE"))
+                conn.execute(text("CREATE SCHEMA public"))
+        else:  # fall back to SQLAlchemy default
+            super().drop_all(bind=bind, tables=tables, checkfirst=checkfirst)
+
+
+Base = declarative_base(metadata=_BaseMetaData())
 
 
 def get_db():

@@ -4,9 +4,16 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    SECRET_KEY: str = ""
-    ALGORITHM: str = ""  # "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 0
+    """Application configuration loaded from environment variables.
+
+    Providing sensible defaults here allows the application and its tests to
+    run out of the box without requiring a separate ``.env`` file.  The
+    values can still be overridden via environment variables when needed.
+    """
+
+    SECRET_KEY: str = "change-me"  # nosec B105 - used for tests only
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     DATABASE_URL: str = "sqlite:///./test.db"
 
     # class Config:
