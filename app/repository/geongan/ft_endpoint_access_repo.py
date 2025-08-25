@@ -1,3 +1,5 @@
+from sqlalchemy.exc import IntegrityError
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.models.geongan.ft_endpoint_access import FtEndpointAccess
@@ -9,7 +11,11 @@ def create_ft_endpoint_access(
 ):
     db_obj = FtEndpointAccess(**ft_endpoint_access_in.model_dump())
     db.add(db_obj)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="ID already exists")
     db.refresh(db_obj)
     return db_obj
 
